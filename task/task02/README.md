@@ -12,6 +12,7 @@
 There are two task on this assignment. I solve them with two different program:
 - [`10219084_no01.py`](./10219084_no01.py)
 - [`10219084_no02.py`](./10219084_no02.py)
+> I kept these confidential, but accesible with permision.
 
 The result overview can be seen here: [`10219084_Tugas02.ipynb`](./10219084_Tugas02.ipynb)
 
