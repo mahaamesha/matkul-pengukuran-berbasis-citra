@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 # set default size for matplotlib
 plt.rcParams.update({'font.size': 10})
 
+
 def get_PSF(PSF:int):
     """ create PSF, model of camera's aperture (bukaan kamera)\\
         return the PSF model and 2D plane as meshgrid\\
@@ -72,7 +73,7 @@ def plot_OTF_complex(u, v, F):
         v   : Any   2d matrix for y line\\
         H   : Any   PSF H\\
     """
-    fig = plt.figure(figsize=(12,6)); plt.suptitle('OTF', fontsize='x-large')
+    fig = plt.figure(figsize=(14,7)); plt.suptitle('OTF', fontsize='x-large')
     
     ax1 = fig.add_subplot(231, projection='3d')
     ax1.plot_surface(u, v, np.real(F), cmap='viridis')
@@ -82,13 +83,13 @@ def plot_OTF_complex(u, v, F):
     ax1.set_zlabel('magnitude')
     
     ax2 = fig.add_subplot(232)
-    ax2.plot(u, np.real(F))
+    ax2.plot(u, np.real(F), linewidth='0.75')
     ax2.set_title('OTF Real vs Freq x')
     ax2.set_xlabel('freq x')
     ax2.set_ylabel('magnitude')
 
     ax3 = fig.add_subplot(233)
-    ax3.plot(v, np.real(F))
+    ax3.plot(v, np.real(F), linewidth='0.75')
     ax3.set_title('OTF Real vs Freq y')
     ax3.set_xlabel('freq y')
     ax3.set_ylabel('magnitude')
@@ -101,13 +102,13 @@ def plot_OTF_complex(u, v, F):
     ax4.set_zlabel('magnitude')
 
     ax5 = fig.add_subplot(235)
-    ax5.plot(u, np.imag(F))
+    ax5.plot(u, np.imag(F), linewidth='0.75')
     ax5.set_title('OTF Imaginer vs Freq x')
     ax5.set_xlabel('freq x')
     ax5.set_ylabel('magnitude')
 
     ax6 = fig.add_subplot(236)
-    ax6.plot(v, np.imag(F))
+    ax6.plot(v, np.imag(F), linewidth='0.75')
     ax6.set_title('OTF Imaginer vs Freq y')
     ax6.set_xlabel('freq y')
     ax6.set_ylabel('magnitude')
@@ -119,6 +120,8 @@ def plot_OTF_complex(u, v, F):
 def plot_MTF(u, v, FF):
     """ represent MTF (for single PSF) in 3d frequency domain
 
+        u   : Any   2d matrix for x line\\
+        v   : Any   2d matrix for y line\\
         FF  : Any   MTF FF\\
     """
     fig = plt.figure(); plt.suptitle('MTF', fontsize='x-large')
@@ -136,21 +139,49 @@ def plot_MTF_logpower(FF):
     """ represent MTF using log power along spatial frequency x and spatial frequncy y=0\\
         logpower vs spatial frequency x\\
 
-        FF  : Any   MTF FF\\
+        FF  : list  MTF FF\\
     """
+    fig = plt.figure(); plt.suptitle('MTF Log Power', fontsize='x-large')
+    ax1 = fig.add_subplot(111)
+
     x = np.arange(-256//2, 256//2)  # remapping the x axis in range (-128, 128)
     y = 20*np.log10( FF[:,128] )    # index 128 will choose the middle data/zero frequency
-
-    fig = plt.figure(); plt.suptitle('MTF Log Power', fontsize='x-large')
-
-    ax1 = fig.add_subplot(111)
-    ax1.plot(x, y)
+    ax1.plot(x, y, linewidth=0.75)
     ax1.set_title('20*log10(MTF) vs freq x')
     ax1.set_xlabel('freq x')
     ax1.set_ylabel('log power')
     plt.grid()
 
     return fig
+
+
+def analysis_MTF_logpower(PSF:list):
+    """ represent MTF using log power along spatial frequency x and spatial frequncy y=0\\
+        logpower vs spatial frequency x\\
+
+        PSF  : list of PSF size\\
+    """
+    FF_list = []
+    sufix = ''
+    for psf in PSF:
+        H,_,_ = get_PSF(psf)
+        _, FF = get_OTF_MTF(H)
+        FF_list.append(FF)
+        sufix += '%s' %psf
+    
+    fig = plt.figure(); plt.suptitle('MTF Log Power', fontsize='x-large')
+    ax1 = fig.add_subplot(111)
+
+    x = np.arange(-256//2, 256//2)  # remapping the x axis in range (-128, 128)
+    for i, FF in enumerate(FF_list):
+        y = 20*np.log10( FF[:,128] )    # index 128 will choose the middle data/zero frequency
+        ax1.plot(x, y, label='PSF=%s' %PSF[i], linewidth=0.75)
+    ax1.set_title('20*log10(MTF) vs freq x')
+    ax1.set_xlabel('freq x')
+    ax1.set_ylabel('log power')
+    plt.legend(); plt.grid()
+    
+    fig.savefig('./midtest/img/no02_mtf_logpower_%s.jpg' %sufix, dpi=144)
 
 
 def analysis_single_PSF(PSF:int, isSave:bool=1, isShow:bool=0):
@@ -185,4 +216,16 @@ def analysis_single_PSF(PSF:int, isSave:bool=1, isShow:bool=0):
 
 
 if __name__ == "__main__":
-    analysis_single_PSF(PSF=30, isSave=1, isShow=0)
+    print('Running PSF analysis ...')
+    PSF_list = [10,20,30,40]
+    
+    for psf in PSF_list:
+        print('    Analysis PSF=%s ...' %psf, end=' ')
+        analysis_single_PSF(PSF=psf, isSave=1, isShow=0)
+        print('Done')
+    
+    print('    Analysis all MTF logpower ...', end=' ')
+    analysis_MTF_logpower(PSF_list)
+    print('Done')
+
+    print('Done')
