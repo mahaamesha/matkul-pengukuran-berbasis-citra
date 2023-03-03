@@ -46,7 +46,7 @@ def plot_PSF(u, v, H):
         v   : Any   2d matrix for y line\\
         H   : Any   PSF H\\
     """
-    fig = plt.figure(figsize=(10,5)); plt.suptitle('PSF', fontsize='x-large')
+    fig = plt.figure(figsize=(10,5))
 
     ax1 = fig.add_subplot(121)
     ax1.imshow(H, cmap='gray')
@@ -73,7 +73,7 @@ def plot_OTF_complex(u, v, F):
         v   : Any   2d matrix for y line\\
         H   : Any   PSF H\\
     """
-    fig = plt.figure(figsize=(14,7)); plt.suptitle('OTF', fontsize='x-large')
+    fig = plt.figure(figsize=(14,7))
     
     ax1 = fig.add_subplot(231, projection='3d')
     ax1.plot_surface(u, v, np.real(F), cmap='viridis')
@@ -124,7 +124,7 @@ def plot_MTF(u, v, FF):
         v   : Any   2d matrix for y line\\
         FF  : Any   MTF FF\\
     """
-    fig = plt.figure(); plt.suptitle('MTF', fontsize='x-large')
+    fig = plt.figure()
 
     ax1 = fig.add_subplot(111, projection='3d')
     ax1.plot_surface(u, v, FF, cmap='viridis')
@@ -141,7 +141,7 @@ def plot_MTF_logpower(FF):
 
         FF  : list  MTF FF\\
     """
-    fig = plt.figure(); plt.suptitle('MTF Log Power', fontsize='x-large')
+    fig = plt.figure()
     ax1 = fig.add_subplot(111)
 
     x = np.arange(-256//2, 256//2)  # remapping the x axis in range (-128, 128)
@@ -169,7 +169,7 @@ def bulk_MTF_logpower(PSF:list):
         FF_list.append(FF)
         sufix += '%s' %psf
     
-    fig = plt.figure(); plt.suptitle('MTF Log Power', fontsize='x-large')
+    fig = plt.figure()
     ax1 = fig.add_subplot(111)
 
     x = np.arange(-256//2, 256//2)  # remapping the x axis in range (-128, 128)
