@@ -155,7 +155,7 @@ def plot_MTF_logpower(FF):
     return fig
 
 
-def analysis_MTF_logpower(PSF:list):
+def bulk_MTF_logpower(PSF:list):
     """ represent MTF using log power along spatial frequency x and spatial frequncy y=0\\
         logpower vs spatial frequency x\\
 
@@ -225,7 +225,7 @@ if __name__ == "__main__":
         print('Done')
     
     print('    Analysis all MTF logpower ...', end=' ')
-    analysis_MTF_logpower(PSF_list)
+    bulk_MTF_logpower(PSF_list)
     print('Done')
 
     print('Done')
