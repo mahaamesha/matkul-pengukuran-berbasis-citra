@@ -43,7 +43,7 @@ def imshow_matplotlib(I, title:str, SNR:str):
     ax = fig.add_subplot(111)
     ax.imshow(I, cmap='gray')
     ax.set_title(title + '(SNR=%s)' %round(SNR,3))
-    ax.set_axis_off()
+    # ax.set_axis_off()
     fig.savefig('./midtest/img/no03_%s.png' %title)
 
 
@@ -71,7 +71,7 @@ def im_process(im_path:str, ksize:int=5, filter_list:list=['gaussian', 'mean', '
     cv.putText(im_roi, 'ROI-B', (202,58), cv.FONT_HERSHEY_PLAIN, 0.6, (0,255,0))
     cv.putText(im_roi, 'ROI-A', (102,88), cv.FONT_HERSHEY_PLAIN, 0.6, (0,0,255))
     plt.imshow( cv.cvtColor(im_roi, cv.COLOR_BGR2RGB) )
-    plt.savefig('./midtest/img/no03_roi.png')
+    plt.savefig('./midtest/img/no03_im_roi.png')
     plt.show()
 
 
