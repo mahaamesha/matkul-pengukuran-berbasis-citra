@@ -1,0 +1,8 @@
+              gaussian (ksize=7, sigma=11) gaussian (ksize=13, sigma=21) motion (len=21, angle=11) motion (len=31, angle=21)
+mse                               2861.545                      8672.303                  6466.794                 18954.214
+psnr                                13.565                         8.749                    10.024                     5.354
+ssim                                 0.732                         0.462                     0.542                     0.276
+correlation                           0.57                         0.394                     0.475                     0.278
+chisquare                            1.134                         1.149                     1.134                     1.475
+intersection                         0.659                         0.612                     0.629                     0.588
+bhattacharyya                        0.288                          0.32                     0.308                     0.337
