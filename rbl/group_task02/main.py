@@ -39,7 +39,8 @@ def process(file_path:str):
     # process the image
     im_ori = cv.imread(file_path)
     im_gray = cv.cvtColor(im_ori, cv.COLOR_BGR2GRAY)
-    im_binary = cv.adaptiveThreshold(im_gray, 255, cv.ADAPTIVE_THRESH_MEAN_C, cv.THRESH_BINARY_INV, 11, 2)
+    im_blur = cv.GaussianBlur(im_gray, (7,7), 0)
+    im_binary = cv.adaptiveThreshold(im_blur, 255, cv.ADAPTIVE_THRESH_MEAN_C, cv.THRESH_BINARY_INV, 11, 2)
 
     # make histogram
     # build_histogram(im_gray, filename + '_gray')
@@ -55,8 +56,7 @@ def process(file_path:str):
     print( f'Percentage of 255 intensity: {percent_255_pixels}%' )
 
     # save images
-    # cv.imwrite(os.path.join(dir_path, f'img/{filename}_ori.jpg'), im_ori)
-    # cv.imwrite(os.path.join(dir_path, f'img/{filename}_gray.jpg'), im_gray)
+    # cv.imwrite(os.path.join(dir_path, f'results/{filename}_gray.jpg'), im_gray)
     cv.imwrite(os.path.join(dir_path, f'results/{filename}_binary.jpg'), im_binary)
     return percent_0_pixels, percent_255_pixels
 
@@ -87,4 +87,5 @@ if __name__ == '__main__':
                 black_percentage[1], white_percentage[1] = process(file_path)
             print()
         df = append_data_to_df(df, i, white_percentage[0], white_percentage[1])
+    df = df.set_index('Dataset')
     print(df)
