@@ -11,6 +11,7 @@ import os
 import cv2 as cv
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 dir_path = os.path.dirname(__file__)
 im_dir = 'citra'        # INPUT THIS !!!
@@ -47,21 +48,43 @@ def process(file_path:str):
     # calculate the number of intensity: 0 n 255
     total_pixels = im_binary.shape[0] * im_binary.shape[1]      # h x w
     num_0_pixels = np.count_nonzero(im_binary == 0)
+    percent_0_pixels = round(num_0_pixels/total_pixels*100, 3)
     num_255_pixels = np.count_nonzero(im_binary == 255)
-    print( f'Percentage of 0 intensity: {round(num_0_pixels/total_pixels*100, 3)}%' )
-    print( f'Percentage of 255 intensity: {round(num_255_pixels/total_pixels*100, 3)}%' )
+    percent_255_pixels = round(num_255_pixels/total_pixels*100, 3)
+    print( f'Percentage of 0 intensity: {percent_0_pixels}%' )
+    print( f'Percentage of 255 intensity: {percent_255_pixels}%' )
 
     # save images
     # cv.imwrite(os.path.join(dir_path, f'img/{filename}_ori.jpg'), im_ori)
     # cv.imwrite(os.path.join(dir_path, f'img/{filename}_gray.jpg'), im_gray)
     cv.imwrite(os.path.join(dir_path, f'results/{filename}_binary.jpg'), im_binary)
+    return percent_0_pixels, percent_255_pixels
+
+def append_data_to_df(df, i, n1, n2):
+    new_row = pd.DataFrame([ {
+        'Dataset': i,
+        'White before (%)': n1,
+        'White after (%)': n2,
+        'Diff': n2-n1
+    } ])
+    df = pd.concat([df, new_row], ignore_index=True)
+    return df
     
 
 if __name__ == '__main__':
     path_db = get_database_path()
-    for input_path in path_db:
+    df = pd.DataFrame()
+    for i, input_path in enumerate(path_db):
+        print(f'===== DATASET {i+1} ==========')
+        black_percentage = [None, None]     # before after
+        white_percentage = [None, None]     # before after
         for file_path in input_path:
             filename = os.path.basename(file_path)
             print(f'Process the {filename} ...')
-            process(file_path)
+            if 'before' in filename:
+                black_percentage[0], white_percentage[0] = process(file_path)
+            elif 'after' in filename:
+                black_percentage[1], white_percentage[1] = process(file_path)
             print()
+        df = append_data_to_df(df, i, white_percentage[0], white_percentage[1])
+    print(df)
