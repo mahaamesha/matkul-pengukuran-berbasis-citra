@@ -60,6 +60,28 @@ def process(file_path:str):
     cv.imwrite(os.path.join(dir_path, f'results/{filename}_binary.jpg'), im_binary)
     return percent_0_pixels, percent_255_pixels
 
+def process(file_path:str):
+    filename = os.path.splitext(os.path.basename(file_path))[0]
+
+    # process the image
+    im_ori = cv.imread(file_path)
+    im_gray = cv.cvtColor(im_ori, cv.COLOR_BGR2GRAY)
+    im_blur = cv.GaussianBlur(im_gray, (7,7), 3)
+    im_binary = cv.adaptiveThreshold(im_blur, 255, cv.ADAPTIVE_THRESH_MEAN_C, cv.THRESH_BINARY_INV, 11, 2)
+
+    # calculate the number of intensity: 0 n 255
+    total_pixels = im_binary.shape[0] * im_binary.shape[1]      # h x w
+    num_0_pixels = np.count_nonzero(im_binary == 0)
+    percent_0_pixels = round(num_0_pixels/total_pixels*100, 3)
+    num_255_pixels = np.count_nonzero(im_binary == 255)
+    percent_255_pixels = round(num_255_pixels/total_pixels*100, 3)
+    print( f'Percentage of 0 intensity: {percent_0_pixels}%' )
+    print( f'Percentage of 255 intensity: {percent_255_pixels}%' )
+
+    # save images
+    cv.imwrite(os.path.join(dir_path, f'results/{filename}_binary.jpg'), im_binary)
+    return percent_0_pixels, percent_255_pixels
+
 def append_data_to_df(df, i, n1, n2):
     new_row = pd.DataFrame([ {
         'Dataset': i,
