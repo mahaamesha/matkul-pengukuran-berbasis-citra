@@ -39,7 +39,7 @@ def process(file_path:str):
     # process the image
     im_ori = cv.imread(file_path)
     im_gray = cv.cvtColor(im_ori, cv.COLOR_BGR2GRAY)
-    im_blur = cv.GaussianBlur(im_gray, (7,7), 0)
+    im_blur = cv.GaussianBlur(im_gray, (7,7), 3)
     im_binary = cv.adaptiveThreshold(im_blur, 255, cv.ADAPTIVE_THRESH_MEAN_C, cv.THRESH_BINARY_INV, 11, 2)
 
     # make histogram
