@@ -14,7 +14,7 @@ import numpy as np
 import pandas as pd
 
 dir_path = os.path.dirname(__file__)
-im_dir = 'citra'        # INPUT THIS !!!
+im_dir = 'citra'        # INPUT THE IMAGE DIRECTORY !!!
 
 def get_database_path():
     fnames = os.listdir( os.path.join(dir_path, im_dir) )
