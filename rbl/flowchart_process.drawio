@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-05-22T09:00:30.406Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42" etag="sUKGGpX4tVuGSyAp5Bzt" version="21.3.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-05-22T09:05:19.671Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36 Edg/113.0.1774.42" etag="puX5Bu1O9WwkTp-HBZG9" version="21.3.2" type="github">
   <diagram id="6a731a19-8d31-9384-78a2-239565b7b9f0" name="Page-1">
-    <mxGraphModel dx="458" dy="537" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
+    <mxGraphModel dx="511" dy="599" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -33,7 +33,12 @@
           <mxGeometry x="260" y="220" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="MGm6-nxnrcdxZ3vGSYxh-64" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="MGm6-nxnrcdxZ3vGSYxh-61" target="MGm6-nxnrcdxZ3vGSYxh-63">
-          <mxGeometry relative="1" as="geometry" />
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="400" y="300" />
+              <mxPoint x="400" y="85" />
+            </Array>
+          </mxGeometry>
         </mxCell>
         <mxCell id="MGm6-nxnrcdxZ3vGSYxh-61" value="gaussian blurring" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="260" y="280" width="120" height="40" as="geometry" />
@@ -42,16 +47,22 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="MGm6-nxnrcdxZ3vGSYxh-63" value="adaptive thresholding" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="260" y="340" width="120" height="40" as="geometry" />
+          <mxGeometry x="420" y="65" width="120" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="MGm6-nxnrcdxZ3vGSYxh-71" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="MGm6-nxnrcdxZ3vGSYxh-65" target="MGm6-nxnrcdxZ3vGSYxh-69">
+        <mxCell id="MGm6-nxnrcdxZ3vGSYxh-75" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="MGm6-nxnrcdxZ3vGSYxh-65" target="MGm6-nxnrcdxZ3vGSYxh-74">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="MGm6-nxnrcdxZ3vGSYxh-65" value="calculate percentage of 0 &amp;amp; 255 intensity" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="260" y="400" width="120" height="40" as="geometry" />
+          <mxGeometry x="420" y="125" width="120" height="40" as="geometry" />
         </mxCell>
         <mxCell id="MGm6-nxnrcdxZ3vGSYxh-69" value="return(percentage &lt;br&gt;of 0 &amp;amp; 255 intensity)" style="shape=mxgraph.flowchart.terminator;strokeWidth=2;gradientColor=none;gradientDirection=north;fontStyle=0;html=1;" vertex="1" parent="1">
-          <mxGeometry x="260" y="460" width="120" height="50" as="geometry" />
+          <mxGeometry x="420" y="245" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="MGm6-nxnrcdxZ3vGSYxh-76" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="MGm6-nxnrcdxZ3vGSYxh-74" target="MGm6-nxnrcdxZ3vGSYxh-69">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="MGm6-nxnrcdxZ3vGSYxh-74" value="store processed image" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="185" width="120" height="40" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
