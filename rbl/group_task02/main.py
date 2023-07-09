@@ -75,7 +75,7 @@ if __name__ == '__main__':
     path_db = get_database_path()
     df = pd.DataFrame()
     for i, input_path in enumerate(path_db):
-        print(f'===== DATASET {i+1} ==========')
+        print(f'===== DATASET {i} ==========')
         black_percentage = [None, None]     # before after
         white_percentage = [None, None]     # before after
         for file_path in input_path:
